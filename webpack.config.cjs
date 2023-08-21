@@ -1,7 +1,7 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import path from "path";
-import { DefinePlugin } from "webpack";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+const { DefinePlugin } = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
     const mode = argv.mode || process.env.NODE_ENV || "development";
