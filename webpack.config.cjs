@@ -37,14 +37,14 @@ module.exports = (env, argv) => {
                 },
             ],
         },
-        entry: {
-            main: "./src/index.tsx",
-            reducer: "./src/store/reducer.ts",
-        },
+        entry: "./src/reducer.ts",
         output: {
             path: path.resolve(__dirname, "build"),
-            filename: "[name]/[name].js",
-            chunkFilename: "[name].js",
+            filename: "index.js",
+            library: {
+                name: "redux-dispute-poc",
+                type: "module",
+            },
         },
         resolve: {
             extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
