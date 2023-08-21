@@ -23,6 +23,7 @@
     "main": "build/reducer/reducer.js",
     "types": "build/store/reducer.d.ts",
     "author": "",
+    "type": "module",
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.22.10",
