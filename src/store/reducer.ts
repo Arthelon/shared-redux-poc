@@ -6,14 +6,14 @@ import {
     createSlice,
 } from "@reduxjs/toolkit";
 
-type Dispute = {
+export type Dispute = {
     createTime: Date;
     id: string;
     amount: number;
     status: DisputeStatusEnum;
 };
 
-enum DisputeStatusEnum {
+export enum DisputeStatusEnum {
     Open = 0,
     Challenged = 1,
     Condeded = 2,
