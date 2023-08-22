@@ -1,11 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { DisputeSliceConfig, configureDisputeSlice } from "./disputeSlice";
 import { ApiConfig, configureApi } from "./api";
-export type {
-    Dispute,
-    DisputeStatusEnum,
-    DisputeReducerState,
-} from "./disputeSlice";
+export { DisputeStatusEnum, configureDisputeSlice } from "./disputeSlice";
+export type { Dispute, DisputeReducerState } from "./disputeSlice";
 
 type DisputeReducerConfig = ApiConfig & DisputeSliceConfig;
 
