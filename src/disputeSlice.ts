@@ -5,6 +5,7 @@ import {
     ValidateSliceCaseReducers,
     createSlice,
 } from "@reduxjs/toolkit";
+import api from "./api";
 
 export type Dispute = {
     createTime: string;
@@ -43,6 +44,7 @@ export function configureDisputeSlice(opts: DisputeSliceConfig) {
         name: "dispute",
         initialState,
         reducers: {
+            // REDUCER ACTIONS
             addDispute(state, action: PayloadAction<Dispute>) {
                 state.disputes.push(action.payload);
             },
@@ -65,6 +67,16 @@ export function configureDisputeSlice(opts: DisputeSliceConfig) {
             },
             ...opts.actionOverrides,
         },
-        extraReducers: opts.extraActions,
+        extraReducers: (builder) => {
+            opts.extraActions(builder);
+
+            // SET DISPUTES WHEN GET_DISPUTES QUERY IS FULFILLED
+            builder.addMatcher(
+                api.endpoints.getDisputes.matchFulfilled,
+                (state, action) => {
+                    state.disputes = action.payload;
+                }
+            );
+        },
     });
 }

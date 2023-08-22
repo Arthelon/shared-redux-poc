@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { DisputeSliceConfig, configureDisputeSlice } from "./disputeSlice";
-import { ApiConfig, configureApi } from "./api";
+import { ApiConfig, DEFAULT_API_URL, configureApi } from "./api";
 export { DisputeStatusEnum, configureDisputeSlice } from "./disputeSlice";
 export type { Dispute, DisputeReducerState } from "./disputeSlice";
 
@@ -8,7 +8,7 @@ type DisputeReducerConfig = ApiConfig & DisputeSliceConfig;
 
 export function configureReducer(
     opts: DisputeReducerConfig = {
-        apiBaseUrl: "https://64e4d4fbc55563802913d3d7.mockapi.io/api/",
+        apiBaseUrl: DEFAULT_API_URL,
         initialState: {
             disputes: [],
         },

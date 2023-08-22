@@ -5,6 +5,9 @@ export type ApiConfig = {
     apiBaseUrl: string;
 };
 
+export const DEFAULT_API_URL =
+    "https://64e4d4fbc55563802913d3d7.mockapi.io/api/";
+
 export const configureApi = (config: ApiConfig) => {
     return createApi({
         reducerPath: "api",
@@ -16,3 +19,7 @@ export const configureApi = (config: ApiConfig) => {
         }),
     });
 };
+
+export default configureApi({
+    apiBaseUrl: DEFAULT_API_URL,
+});
