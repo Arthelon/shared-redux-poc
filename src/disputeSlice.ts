@@ -53,9 +53,6 @@ export function configureDisputeSlice(
         initialState,
         reducers: {
             // REDUCER ACTIONS
-            addDispute(state, action: PayloadAction<Dispute>) {
-                state.disputes.push(action.payload);
-            },
             setDisputes(state, action: PayloadAction<Dispute[]>) {
                 state.disputes = action.payload;
             },
