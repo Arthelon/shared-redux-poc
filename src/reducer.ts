@@ -7,8 +7,8 @@ import {
 } from "@reduxjs/toolkit";
 
 export type Dispute = {
-    createTime: Date;
-    id: string;
+    createTime: string;
+    id: string | number;
     amount: number;
     status: DisputeStatusEnum;
 };
