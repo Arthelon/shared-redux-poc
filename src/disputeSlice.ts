@@ -85,3 +85,5 @@ export function configureDisputeSlice(
         },
     });
 }
+
+export default configureDisputeSlice();

@@ -1,5 +1,5 @@
 export { DisputeStatusEnum } from "./disputeSlice";
 export type { Dispute, DisputeReducerState } from "./disputeSlice";
 
-export { configureDisputeSlice } from "./disputeSlice";
-export { configureDisputeApi } from "./api";
+export { configureDisputeSlice, default as disputeSlice } from "./disputeSlice";
+export { configureDisputeApi, default as disputeApi } from "./api";
