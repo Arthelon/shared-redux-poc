@@ -8,7 +8,9 @@ export type ApiConfig = {
 export const DEFAULT_API_URL =
     "https://64e4d4fbc55563802913d3d7.mockapi.io/api/";
 
-export const configureApi = (config: ApiConfig) => {
+export const configureDisputeApi = (
+    config: ApiConfig = { apiBaseUrl: DEFAULT_API_URL }
+) => {
     return createApi({
         reducerPath: "api",
         baseQuery: fetchBaseQuery({ baseUrl: config.apiBaseUrl }),
@@ -20,6 +22,6 @@ export const configureApi = (config: ApiConfig) => {
     });
 };
 
-export default configureApi({
+export default configureDisputeApi({
     apiBaseUrl: DEFAULT_API_URL,
 });

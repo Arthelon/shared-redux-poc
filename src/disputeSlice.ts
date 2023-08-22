@@ -39,7 +39,15 @@ export type DisputeSliceConfig = {
     ) => void;
 };
 
-export function configureDisputeSlice(opts: DisputeSliceConfig) {
+export function configureDisputeSlice(
+    opts: DisputeSliceConfig = {
+        initialState: {
+            disputes: [],
+        },
+        actionOverrides: {},
+        extraActions: () => {},
+    }
+) {
     return createSlice({
         name: "dispute",
         initialState,
