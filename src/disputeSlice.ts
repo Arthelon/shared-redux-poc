@@ -56,14 +56,14 @@ export function configureDisputeSlice(
             setDisputes(state, action: PayloadAction<Dispute[]>) {
                 state.disputes = action.payload;
             },
-            concedeDispute(state, action: PayloadAction<string>) {
+            concedeDispute(state, action: PayloadAction<string | number>) {
                 const dispute = state.disputes.find(
                     (d) => d.id === action.payload
                 );
                 if (dispute && dispute.status === DisputeStatusEnum.Open)
                     dispute.status = DisputeStatusEnum.Condeded;
             },
-            challengeDispute(state, action: PayloadAction<string>) {
+            challengeDispute(state, action: PayloadAction<string | number>) {
                 const dispute = state.disputes.find(
                     (d) => d.id === action.payload
                 );
