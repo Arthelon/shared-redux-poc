@@ -6,7 +6,7 @@ export type { Dispute, DisputeReducerState } from "./disputeSlice";
 
 type DisputeReducerConfig = ApiConfig & DisputeSliceConfig;
 
-export function configureReducer(
+export function configureSlice(
     opts: DisputeReducerConfig = {
         apiBaseUrl: DEFAULT_API_URL,
         initialState: {
@@ -24,17 +24,26 @@ export function configureReducer(
     const api = configureApi({
         apiBaseUrl: opts.apiBaseUrl,
     });
+    const middleware = api.middleware;
+    const { useGetDisputesQuery, useLazyGetDisputesQuery } = api;
+
+    // Root Reducer
     const reducer = combineReducers({
         dispute: disputeSlice.reducer,
         api: api.reducer,
     });
-    const middleware = api.middleware;
+
     return {
         reducer,
         api,
         disputeSlice,
         middleware,
+
+        // Actions and query hooks
+        useGetDisputesQuery,
+        useLazyGetDisputesQuery,
+        ...disputeSlice.actions,
     };
 }
 
-export default configureReducer();
+export default configureSlice();
