@@ -1,78 +1,43 @@
-import {
-    ActionReducerMapBuilder,
-    PayloadAction,
-    SliceCaseReducers,
-    ValidateSliceCaseReducers,
-    createSlice,
-} from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
+import { DisputeSliceConfig, configureDisputeSlice } from "./disputeSlice";
+import { ApiConfig, configureApi } from "./api";
+export type {
+    Dispute,
+    DisputeStatusEnum,
+    DisputeReducerState,
+} from "./disputeSlice";
 
-export type Dispute = {
-    createTime: string;
-    id: string | number;
-    amount: number;
-    status: DisputeStatusEnum;
-};
-
-export enum DisputeStatusEnum {
-    Open = 0,
-    Challenged = 1,
-    Condeded = 2,
-}
-
-export type DisputeReducerState = {
-    disputes: Dispute[];
-};
-
-const initialState: DisputeReducerState = {
-    disputes: [],
-};
-
-type ConfigReducerOpts = {
-    actionOverrides: ValidateSliceCaseReducers<
-        DisputeReducerState,
-        SliceCaseReducers<DisputeReducerState>
-    >;
-    initialState: DisputeReducerState;
-    extraActions: (
-        builder: ActionReducerMapBuilder<DisputeReducerState>
-    ) => void;
-};
+type DisputeReducerConfig = ApiConfig & DisputeSliceConfig;
 
 export function configureReducer(
-    opts: ConfigReducerOpts = {
-        initialState,
+    opts: DisputeReducerConfig = {
+        apiBaseUrl: "https://64e4d4fbc55563802913d3d7.mockapi.io/api/",
+        initialState: {
+            disputes: [],
+        },
         actionOverrides: {},
         extraActions: () => {},
     }
 ) {
-    return createSlice({
-        name: "dispute",
-        initialState,
-        reducers: {
-            addDispute(state, action: PayloadAction<Dispute>) {
-                state.disputes.push(action.payload);
-            },
-            setDisputes(state, action: PayloadAction<Dispute[]>) {
-                state.disputes = action.payload;
-            },
-            concedeDispute(state, action: PayloadAction<string>) {
-                const dispute = state.disputes.find(
-                    (d) => d.id === action.payload
-                );
-                if (dispute && dispute.status === DisputeStatusEnum.Open)
-                    dispute.status = DisputeStatusEnum.Condeded;
-            },
-            challengeDispute(state, action: PayloadAction<string>) {
-                const dispute = state.disputes.find(
-                    (d) => d.id === action.payload
-                );
-                if (dispute && dispute.status === DisputeStatusEnum.Open)
-                    dispute.status = DisputeStatusEnum.Challenged;
-            },
-            ...opts.actionOverrides,
-        },
-        extraReducers: opts.extraActions,
+    const disputeSlice = configureDisputeSlice({
+        initialState: opts.initialState,
+        actionOverrides: opts.actionOverrides,
+        extraActions: opts.extraActions,
     });
+    const api = configureApi({
+        apiBaseUrl: opts.apiBaseUrl,
+    });
+    const reducer = combineReducers({
+        dispute: disputeSlice.reducer,
+        api: api.reducer,
+    });
+    const middleware = api.middleware;
+    return {
+        reducer,
+        api,
+        disputeSlice,
+        middleware,
+    };
 }
 
 export default configureReducer();
